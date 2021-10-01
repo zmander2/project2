@@ -21,7 +21,7 @@ function [answer] = zach(x,y,x_lookup)
             term=coefficient*deltaf(LengthOfdeltaf);
             sum=sum+term;
         end
-        answer(x_i)=sum
+        answer(i)=sum
     end
 end
 
