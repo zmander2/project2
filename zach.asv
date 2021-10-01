@@ -11,15 +11,22 @@ function [answer] = zach(x,y,x_lookup)
         s=(x_i-x_n)/h;
         %disp(s)
         deltaf=y;
-        sum
+        %sum = x(LengthOfx) + deltaf(LengthOfx);
+        
         for j = 0: LengthOfx-2
-            coefficient=getcoefficient(s,j);
+
+            
+            
             %disp(coefficient);
-            deltaf=calculatedifference(deltaf);
+            deltaf=calculatedifference(deltaf)
+            deltafcols(j + 1) = deltaf(end);
             %disp(deltaf)
-            LengthOfdeltaf = length(deltaf);
-            term=coefficient*deltaf(LengthOfdeltaf)
+            %LengthOfdeltaf = length(deltaf);
+            %term=coefficient*deltaf(LengthOfdeltaf);
+            %sum=sum+term;
         end
+        deltafcols;
+        answer(i) = x(end) + y(end) + evalhornes(0, deltafcols, s)
     end
 end
 
@@ -35,5 +42,18 @@ function [difference] = calculatedifference(deltaf)
     LengthOfdeltaf = length(deltaf);
     for i = 1:LengthOfdeltaf-1
         difference(i)= deltaf(i+1)-deltaf(i);
+    end
+end
+
+function [answer] = evalhornes(col,deltafcols,s)
+    
+    if col==length(deltafcols)-1
+        deltacol=deltafcols(col+1);
+        lastnumber=deltacol
+       answer = ((s+col)/(col+1))*lastnumber;
+   
+    else 
+        deltacol=deltafcols(col+1);
+        answer=deltacol+((s+col)/(col+1))*(evalhornes(col+1,deltafcols,s));
     end
 end
